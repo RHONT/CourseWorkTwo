@@ -1,6 +1,9 @@
 package ru.rhontcompany.aqapi.servises.apiimpl;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
+
 
 public final class Question {
     private final String question;

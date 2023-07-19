@@ -4,7 +4,6 @@ import ru.rhontcompany.aqapi.servises.apiimpl.Question;
 
 import java.util.Collection;
 
-public interface QuestionService {
-    Question getRandomQuestion();
-    Collection<Question> getAll();
+public interface ExamService {
+    Collection<Question> getRandomCollect(int amount);
 }
