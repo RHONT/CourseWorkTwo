@@ -1,6 +1,5 @@
 package ru.rhontcompany.aqapi.servises.apiimpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.rhontcompany.aqapi.servises.api.ExamService;
@@ -11,30 +10,15 @@ import java.util.*;
 @Service
 public class ExamServiceImpl implements ExamService {
 
-
     private final Random myRandom;
-//    private final QuestionService questionService;
 
     @Qualifier("mathAndJava")
     private final List<QuestionService> serviceList;
-
-
-//    public ExamServiceImpl(QuestionService questionService) {
-//        this.questionService = questionService;
-//        random=new Random();
-//
-//    }
 
     public ExamServiceImpl(Random myRandom, List<QuestionService> serviceList) {
         this.myRandom = myRandom;
         this.serviceList = serviceList;
     }
-
-
-//    public ExamServiceImpl(List<QuestionService> serviceList) {
-////        this.random = new Random();
-//        this.serviceList = serviceList;
-//    }
 
     @Override
     public Collection<Question> getRandomCollect(int amount) {
@@ -46,10 +30,22 @@ public class ExamServiceImpl implements ExamService {
             serviceList.get(0).getRandomQuestion();
         }
 
-        int amountQuestionJava=myRandom.nextInt(amount+1)+1;
-        int amountQuestionMath=amount-amountQuestionJava;
+        int sizeJava=serviceList.get(0).getAll().size();
 
-        Set<Question> resultSet=new HashSet<>();
+        int amountQuestionJava;
+        int amountQuestionMath;
+
+        if (amount>sizeJava) {
+            amountQuestionJava = myRandom.nextInt(sizeJava + 1) + 1;
+        } else {
+            amountQuestionJava = myRandom.nextInt(amount + 1) + 1;
+        }
+
+
+        amountQuestionMath = amount - amountQuestionJava;
+
+
+        Set<Question> resultSet = new HashSet<>();
         resultSet.addAll(getJavaRandomQuestion(amountQuestionJava));
         resultSet.addAll(getMathRandomQuestion(amountQuestionMath));
 
@@ -57,7 +53,7 @@ public class ExamServiceImpl implements ExamService {
     }
 
     private Collection<Question> getMathRandomQuestion(int amountQuestionMath) {
-        Set<Question> mathSet=new HashSet<>();
+        Set<Question> mathSet = new HashSet<>();
         for (int i = 0; i < amountQuestionMath; i++) {
             mathSet.add(serviceList.get(1).getRandomQuestion());
         }
@@ -86,7 +82,6 @@ public class ExamServiceImpl implements ExamService {
             setRandomQuestion.add(temp);
             setOriginal.remove(temp);
         }
-
 
         return setRandomQuestion;
     }
