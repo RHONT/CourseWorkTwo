@@ -1,6 +1,5 @@
 package ru.rhontcompany.aqapi.servises.apiimpl;
 
-import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -32,7 +31,7 @@ public final class Question {
 
     @Override
     public int hashCode() {
-        return Objects.hash(question, answer);
+        return Objects.hash(question);
     }
 
     @Override
