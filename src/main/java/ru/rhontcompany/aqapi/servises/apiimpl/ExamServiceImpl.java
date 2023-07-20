@@ -36,9 +36,9 @@ public class ExamServiceImpl implements ExamService {
         int amountQuestionMath;
 
         if (amount>sizeJava) {
-            amountQuestionJava = myRandom.nextInt(sizeJava + 1) + 1;
+            amountQuestionJava = myRandom.nextInt(sizeJava-1) + 1;
         } else {
-            amountQuestionJava = myRandom.nextInt(amount + 1) + 1;
+            amountQuestionJava = myRandom.nextInt(amount -1) + 1;
         }
 
 
@@ -63,24 +63,24 @@ public class ExamServiceImpl implements ExamService {
     private Collection<Question> getJavaRandomQuestion(int amountQuestionJava) {
 
         // Создаем массив из сета, чтобы иметь возможность случайным числом проходиться по индексам.
-        Question[] questionsArray = serviceList.get(0).getAll().toArray(new Question[0]);
+        List<Question> questionList=new ArrayList<>(serviceList.get(0).getAll());
 
-        // Создаем копию сета оригинала, чтобы удалять вопросы, которые уже попались.
-        Set<Question> setOriginal = new HashSet<>(serviceList.get(0).getAll());
-
-        int randomValue = myRandom.nextInt(questionsArray.length);
+        int counter=questionList.size();
+        int randomValue = myRandom.nextInt(counter);
 
         // Результирующий сет с вопросами.
         Set<Question> setRandomQuestion = new HashSet<>();
 
         for (int i = 0; i < amountQuestionJava; i++) {
-            Question temp = questionsArray[randomValue];
-            while (!setOriginal.contains(temp)) {
-                randomValue = myRandom.nextInt(questionsArray.length);
-                temp = questionsArray[randomValue];
+            Question temp = questionList.get(randomValue);
+            while (setRandomQuestion.contains(temp)) {
+                randomValue = myRandom.nextInt(counter);
+                temp = questionList.get(randomValue);
             }
             setRandomQuestion.add(temp);
-            setOriginal.remove(temp);
+            questionList.remove(temp);
+            counter--;
+            randomValue = myRandom.nextInt(counter);
         }
 
         return setRandomQuestion;
