@@ -11,14 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MathQuestionServiceImplTest {
 
-    private final Question TEMP_Q=new Question("test","test");
-    private final Question TEMP_Q_2=new Question("test","another");
+    private final Question TEMP_Q = new Question("test", "test");
+    private final Question TEMP_Q_2 = new Question("test", "another");
 
-   private MathQuestionServiceImpl math;
+    private MathQuestionServiceImpl math;
 
     @BeforeEach
     void setUp() {
-        math =new MathQuestionServiceImpl(new Random());
+        math = new MathQuestionServiceImpl(new Random());
         math.setActive(true);
 
     }
@@ -27,9 +27,8 @@ class MathQuestionServiceImplTest {
     public void getRandomQuestion_Add_Two_Random_Element() {
         math.getRandomQuestion();
         math.getRandomQuestion();
-        assertEquals(2,math.getAll().size());
+        assertEquals(2, math.getAll().size());
     }
-
 
 
     @Test
@@ -37,9 +36,9 @@ class MathQuestionServiceImplTest {
         math.getRandomQuestion();
         math.getRandomQuestion();
         math.add(TEMP_Q);
-        assertEquals(3,math.getAll().size());
+        assertEquals(3, math.getAll().size());
         math.remove(TEMP_Q);
-        assertEquals(2,math.getAll().size());
+        assertEquals(2, math.getAll().size());
 
     }
 
@@ -47,13 +46,13 @@ class MathQuestionServiceImplTest {
     public void add_Erase_Duplicate_Question() {
         math.add(TEMP_Q);
         math.add(TEMP_Q_2);
-        assertEquals(TEMP_Q_2,math.getAll().stream().findFirst().get());
+        assertEquals(TEMP_Q_2, math.getAll().stream().findFirst().get());
 
     }
 
     @Test
-    public void add_Throw_StopedMathRepository(){
+    public void add_Throw_StopedMathRepository() {
         math.setActive(false);
-        assertThrows(StopedMathRepository.class,()->math.add(TEMP_Q));
+        assertThrows(StopedMathRepository.class, () -> math.add(TEMP_Q));
     }
 }
