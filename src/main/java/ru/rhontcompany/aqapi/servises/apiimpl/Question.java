@@ -26,7 +26,7 @@ public final class Question {
         if (this == o) return true;
         if (!(o instanceof Question)) return false;
         Question question1 = (Question) o;
-        return Objects.equals(question, question1.question) && Objects.equals(answer, question1.answer);
+        return Objects.equals(question, question1.question);
     }
 
     @Override

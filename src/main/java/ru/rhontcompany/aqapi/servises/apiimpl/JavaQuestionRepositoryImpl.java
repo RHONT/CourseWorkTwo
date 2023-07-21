@@ -2,7 +2,6 @@ package ru.rhontcompany.aqapi.servises.apiimpl;
 
 import org.springframework.stereotype.Repository;
 import ru.rhontcompany.aqapi.servises.api.QuestionRepository;
-
 import javax.annotation.PostConstruct;
 import java.util.*;
 
@@ -22,9 +21,6 @@ public class JavaQuestionRepositoryImpl implements QuestionRepository {
                 new Question("6q","6a"),
                 new Question("7q","7a")
         ));
-
-
-
     }
 
     public JavaQuestionRepositoryImpl(Set<Question> questions) {
@@ -39,39 +35,29 @@ public class JavaQuestionRepositoryImpl implements QuestionRepository {
     }
 
     @Override
-    public Question add(Question questionObj) {
-        //todo проверка на null
-        questions.add(questionObj);
-
-        return questionObj;
+    public Question add(Question question) {
+        isBlankOrEmpty(question.getQuestion(), question.getAnswer());
+        questions.remove(question);
+        questions.add(question);
+        return question;
     }
 
     @Override
     public Question add(String question, String answer) {
-        //todo проверка строк javalang
+        isBlankOrEmpty(question,answer);
         Question questionObj=new Question(question,answer);
-        questions.add(questionObj);
-
-        return questionObj;
+        return add(questionObj);
     }
 
     @Override
     public Collection<Question> getAll() {
-        return Collections.unmodifiableSet(questions);
+        return questions;
     }
 
 
-    @Override
-    public Question getRandomQuestion() {
-
-        return questions.stream().findFirst().orElseThrow(()->new NoSuchElementException("Список пустой"));
-    }
-
-    @Override
-    public Question find(Question questionObj) {
-        if (questions.contains(questionObj)) {
-            return questionObj;
-        } else return new Question("Нет такого","вопроса");
-
+    private void isBlankOrEmpty(String strFirst, String strSecond){
+        if (strFirst.isBlank() || strFirst.isEmpty() || strSecond.isBlank() || strSecond.isEmpty()) {
+            throw new IllegalArgumentException("Одна из строк пусты");
+        }
     }
 }
