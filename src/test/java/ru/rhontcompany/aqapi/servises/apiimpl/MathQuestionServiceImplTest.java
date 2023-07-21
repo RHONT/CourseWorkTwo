@@ -2,10 +2,12 @@ package ru.rhontcompany.aqapi.servises.apiimpl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.rhontcompany.aqapi.exception.StopedMathRepository;
 
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MathQuestionServiceImplTest {
 
@@ -47,5 +49,11 @@ class MathQuestionServiceImplTest {
         math.add(TEMP_Q_2);
         assertEquals(TEMP_Q_2,math.getAll().stream().findFirst().get());
 
+    }
+
+    @Test
+    public void add_Throw_StopedMathRepository(){
+        math.setActive(false);
+        assertThrows(StopedMathRepository.class,()->math.add(TEMP_Q));
     }
 }
