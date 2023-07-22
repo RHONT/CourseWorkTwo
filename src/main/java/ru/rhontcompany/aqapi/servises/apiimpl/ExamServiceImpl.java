@@ -27,7 +27,7 @@ public class ExamServiceImpl implements ExamService {
         }
 
         Set<Question> resultSet = new HashSet<>();
-        int step=myRandom.nextInt(amount);
+        int step=myRandom.nextInt(amount-1)+1;
 
         while (amount > 0) {
             for (QuestionService questionService : serviceList) {
