@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.rhontcompany.aqapi.servises.api.ExamService;
 import ru.rhontcompany.aqapi.servises.api.QuestionService;
+
 import java.util.*;
 
 @Service
@@ -26,16 +27,22 @@ public class ExamServiceImpl implements ExamService {
         }
 
         Set<Question> resultSet = new HashSet<>();
+        int step=myRandom.nextInt(amount);
 
-        while (amount>0){
+        while (amount > 0) {
             for (QuestionService questionService : serviceList) {
                 if (amount > 0) {
-                    Question temp = questionService.getRandomQuestion();
-                    if (!resultSet.contains(temp)) {
-                        resultSet.add(temp);
-                        amount--;
+                    for (int i = 0; i < step; i++) {
+                        Question temp = questionService.getRandomQuestion();
+                        if (temp==null) {
+                            break;
+                        }
+                        else if (!resultSet.contains(temp)) {
+                            resultSet.add(temp);
+                            amount--;
+                        }
                     }
-                } else break;
+                }
             }
         }
         return resultSet;

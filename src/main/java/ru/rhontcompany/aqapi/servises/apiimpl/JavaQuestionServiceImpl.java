@@ -35,7 +35,7 @@ public class JavaQuestionServiceImpl implements QuestionService {
     @Override
     public Question getRandomQuestion() {
         int size=javaQuestionRepository.getAll().size();
-        return javaQuestionRepository.getAll().stream().skip(new Random().nextInt(size)).findFirst().orElseThrow(()->new NoSuchElementException("Список пустой"));
+        return javaQuestionRepository.getAll().stream().skip(new Random().nextInt(size)).findFirst().get();
     }
 
     @Override
