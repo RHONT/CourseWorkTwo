@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.rhontcompany.aqapi.servises.api.QuestionService;
+import static ru.rhontcompany.aqapi.constatnt.Constants.*;
 
 import java.util.*;
 
@@ -13,9 +14,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ExamServiceImplTest {
-
-    private final Question TEMP_Q = new Question("test", "test");
-    private final Question TEMP_Q_2 = new Question("Test_2", "another");
 
     private final QuestionService math = mock(MathQuestionServiceImpl.class);
     private final QuestionService java = mock(JavaQuestionServiceImpl.class);
@@ -37,7 +35,7 @@ class ExamServiceImplTest {
         ));
         when(java.getAll()).thenReturn(tempSet);
         when(math.getRandomQuestion()).thenReturn(TEMP_Q);
-        when(java.getRandomQuestion()).thenReturn(TEMP_Q_2);
+        when(java.getRandomQuestion()).thenReturn(TEMP_Q_3);
 
     }
 
@@ -45,7 +43,7 @@ class ExamServiceImplTest {
     void getRandomCollect() {
         Set<Question> setTemp=new HashSet<>();
         setTemp.add(TEMP_Q);
-        setTemp.add(TEMP_Q_2);
+        setTemp.add(TEMP_Q_3);
 
         assertEquals(setTemp,examService.getRandomCollect(2));
     }

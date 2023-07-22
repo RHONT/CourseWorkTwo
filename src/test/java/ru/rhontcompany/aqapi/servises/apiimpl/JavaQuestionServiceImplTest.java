@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.rhontcompany.aqapi.constatnt.Constants;
 import ru.rhontcompany.aqapi.servises.api.QuestionRepository;
 
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static ru.rhontcompany.aqapi.constatnt.Constants.*;
 
 @ExtendWith(MockitoExtension.class)
 class JavaQuestionServiceImplTest {
@@ -21,10 +23,6 @@ class JavaQuestionServiceImplTest {
     private final QuestionRepository javaRepositoryMock = mock(JavaQuestionRepositoryImpl.class);
 
     JavaQuestionServiceImpl javaQ;
-
-
-    private final Question TEMP_Q = new Question("test", "test");
-    private final Question TEMP_Q_2 = new Question("test", "another");
 
     Question temp_q = new Question("one", "two");
 
@@ -55,6 +53,7 @@ class JavaQuestionServiceImplTest {
     void add() {
         when(javaRepositoryMock.add(any())).thenReturn(TEMP_Q);
         assertEquals(TEMP_Q, javaQ.add(TEMP_Q));
+
     }
 
     // сомневаюсь в этом тесте

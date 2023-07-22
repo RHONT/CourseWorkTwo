@@ -8,12 +8,9 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.rhontcompany.aqapi.constatnt.Constants.*;
 
 class MathQuestionServiceImplTest {
-
-    private final Question TEMP_Q = new Question("test", "test");
-    private final Question TEMP_Q_2 = new Question("test", "another");
-
     private MathQuestionServiceImpl math;
 
     @BeforeEach
