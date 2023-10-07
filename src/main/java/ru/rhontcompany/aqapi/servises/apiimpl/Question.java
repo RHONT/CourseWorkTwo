@@ -21,6 +21,10 @@ public final class Question {
         return answer;
     }
 
+    /**
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

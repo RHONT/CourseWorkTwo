@@ -1,5 +1,6 @@
 package ru.rhontcompany.aqapi.servises.apiimpl;
 
+
 import org.springframework.stereotype.Service;
 import ru.rhontcompany.aqapi.exception.StopedMathRepository;
 import ru.rhontcompany.aqapi.servises.api.QuestionService;
@@ -9,9 +10,9 @@ import java.util.*;
 @Service
 public class MathQuestionServiceImpl implements QuestionService {
 
-    boolean isActive=false;
-    Set<Question> repositoryRandomQuestion = new HashSet<>();
-    Random myRandom;
+    private boolean isActive = false;
+    private Set<Question> repositoryRandomQuestion = new HashSet<>();
+    private Random myRandom;
 
     public MathQuestionServiceImpl(Random random) {
         this.myRandom = random;
@@ -52,11 +53,11 @@ public class MathQuestionServiceImpl implements QuestionService {
     @Override
     public Question add(String question, String answer) {
         checkActive();
-        Question questionObj=new Question(question,answer);
+        Question questionObj = new Question(question, answer);
         return add(questionObj);
     }
 
-    private void checkActive(){
+    private void checkActive() {
         if (!isActive) {
             throw new StopedMathRepository("Method not Allowed");
         }
